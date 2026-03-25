@@ -1,0 +1,21 @@
+// Last updated: 3/25/2026, 9:07:33 AM
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int jumps = 0, l = 0, r = 0, n = nums.size();
+        while (r < n - 1) {
+            int farthest = 0;
+            for (int i = l; i <= r; i++) {
+                farthest = max(farthest, i + nums[i]);
+            }
+        
+            l = r + 1;
+            r = farthest;
+
+            if (l > r) break;
+
+            jumps++;
+        }
+        return jumps;
+    }
+};
