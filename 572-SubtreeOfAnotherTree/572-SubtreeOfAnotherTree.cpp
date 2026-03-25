@@ -1,0 +1,40 @@
+// Last updated: 3/25/2026, 9:05:03 AM
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if(p == NULL && q == NULL) return true;
+
+        if(  (p == NULL && q != NULL) || 
+             (p != NULL && q == NULL) || 
+             (p->val != q->val)  ) {
+            return false;
+        }
+        return isSameTree(p->left, q->left) &&
+               isSameTree(p->right, q->right);
+    }
+
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+        if (root == nullptr) return false;
+
+        // If current node matches subRoot's root, check for full match
+        if (root->val == subRoot->val) {
+            if (isSameTree(root, subRoot)) {
+                return true;
+            }
+        }
+
+        // Otherwise, recursively check left and right subtrees
+        return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
+    }
+};
